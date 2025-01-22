@@ -1,0 +1,91 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+typedef struct {
+	int physics[5];
+	int maths[5];
+	int BulgarianLanguage[5];
+	int Programming[5];
+}Grades;
+
+typedef struct {
+	int physics_att[15];
+	int maths_att[15];
+	int BulgarianLanguage_att[15];
+	int programming_att[15];
+}Attendance;
+
+typedef struct {
+	char fName[20];
+	char lName[20];
+	int age;
+	int id;
+	long long int contact_number;
+	long long int family_contact_number;
+	char home_address[20];
+	Grades g;
+	Attendance a;
+}student;
+
+/////////////////////////////////////////////////////////////////////////////
+
+void student_info(student* pStudent);
+void student_info(student* pStudent) {
+	printf_s("\n\nName: %s %s", pStudent->fName, pStudent->lName);
+	printf_s("\nAge: %d", pStudent->age);
+	printf_s("\nNumber: %lld", pStudent->contact_number);
+}
+
+void create_student(student	*pStudent);
+void create_student(student* pStudent) {
+
+	int Bulgarian_att[15] = { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 };
+	int Physics_att[15] = { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 };
+	int maths_att[15] = { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 };
+	int programming_att[15] = { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 };
+	int att_size = sizeof(Bulgarian_att) / sizeof(int);
+
+	int physics_grades[5] = { 5,3,2,5,6 };
+	int math_grades[5] = { 5,2,4,5,6 };
+	int bulgarian_grades[5] = { 4,5,2,5,5 };
+	int programming_grades[5] = { 3,4,5,2,4 };
+	int grades_size = sizeof(physics_grades) / sizeof(int);
+
+	pStudent->age = 18;
+	pStudent->id = 0000;
+	pStudent->contact_number = 884732239;
+	pStudent->family_contact_number = 81847211289;
+
+	strcpy_s(pStudent->fName, sizeof(pStudent->fName), "Georgi");
+	strcpy_s(pStudent->lName, sizeof(pStudent->lName), "Petrov");
+	strcpy_s(pStudent->home_address, sizeof(pStudent->home_address), "Plovdiv");
+
+	// pStudent->a.BulgarianLanguage_att[0] = Bulgarian_att[0];
+
+	memcpy(pStudent->a.BulgarianLanguage_att, Bulgarian_att, sizeof(int) * att_size);
+	memcpy(pStudent->a.physics_att, Physics_att, sizeof(int) * att_size);
+	memcpy(pStudent->a.maths_att, maths_att, sizeof(int) * att_size);
+	memcpy(pStudent->a.programming_att, programming_att, sizeof(int) * att_size);
+
+	memcpy(pStudent->g.maths, math_grades, sizeof(int) * att_size);
+	memcpy(pStudent->g.physics, physics_grades, sizeof(int) * att_size);
+	memcpy(pStudent->g.Programming, programming_grades, sizeof(int) * att_size);
+	memcpy(pStudent->g.BulgarianLanguage, bulgarian_grades, sizeof(int) * att_size);
+}
+
+/////////////////////////////////////////////////////////////////////////////
+
+int main(void) {
+	int choice, student_id;
+	student s1;
+	// Creating a pointer to the structure
+	student* pStudent = &s1;
+	create_student(pStudent);
+
+	printf_s("Hello, World!\nPlease choose one of the following options:\n1. Students Information\n2. Academic Record\n3. Attendance\n4. Exit\n");
+
+	student_info(pStudent);
+
+	return 0;
+}
